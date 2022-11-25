@@ -8,6 +8,13 @@ public class Person {
 	@Id
 	private int id;
 	private String name;
+	private String pname;
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	public int getId() {
 		return id;
 	}

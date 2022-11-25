@@ -13,6 +13,25 @@ pageEncoding="ISO-8859-1"%>
 
 <input type="text" name=id><br>
 <input type="text" name=name><br>
+<input type="text" name=pname><br>
 <input type="submit"><br>
+</form>
+
+<form  action="byname">
+
+<input type="text" name=name><br>
+Search By Name<input type="Submit"> x
+
+</form><br>
+
+<form  action="bypname" >
+<input type="text" name=pname><br>
+Search By Pname<input type="Submit" >
+
+</form><br>
+
+<form  action="bypnamesorted" >
+<input type="text" name=pname><br>
+ Search By Pname<input type="Submit">
 </form>
 </body>
