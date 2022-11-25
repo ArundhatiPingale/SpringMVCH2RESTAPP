@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,19 +71,19 @@ public class PersonController {
 	}
 	@RequestMapping("/allPerson")
 	@ResponseBody
-	public String allPerson()
+	public List<Person> allPerson()
 	{
 		
-		return repo.findAll().toString();
+		return repo.findAll();
 		
 	}
 	
 	@RequestMapping("/allPerson/{id}")
 	@ResponseBody
-	public String allPerson(@PathVariable("id") int id)
+	public Optional<Person> allPerson(@PathVariable("id") int id)
 	{
 		
-		return repo.findById(id).toString();
+		return repo.findById(id);
 		
 	}
 
