@@ -4,17 +4,24 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dao.PersonRepo;
 import com.example.demo.model.Person;
 
-@Controller
+@RestController
 public class PersonController {
 	
 	@Autowired
@@ -27,18 +34,37 @@ public class PersonController {
 		return "WelcomePage.jsp";
 	}
 	
-	@RequestMapping("/addPerson")
-	public String addPerson(Person person)
+	@PostMapping(path="/addPerson" , produces ={MediaType.APPLICATION_JSON_VALUE})
+	public Person addPerson(Person person )
 	{
-		System.out.println("inside Person add");
+		
 		repo.save(person);
-		return "WelcomePage.jsp";
+		return person;
+		
+		
+	}
+	@PutMapping(path="/updatePerson/{id}" , produces ={MediaType.APPLICATION_JSON_VALUE})
+	public Person updatePerson(Person person )
+	{
+
+		repo.save(person);
+		return person;
 		
 		
 	}
 	
-	@RequestMapping("/byname")
-	@ResponseBody
+	@DeleteMapping(path="/deletePerson/{id}" )
+	public void deletePerson(@RequestParam int id )
+	{
+		
+		repo.deleteById(id);
+		
+	
+		
+		
+	}
+	@GetMapping("/byname")
+	
 	public List<Person> findbyname(@RequestParam String name)
 	{
 		return repo.findbyname(name);
@@ -49,7 +75,7 @@ public class PersonController {
 	
 	
 	@RequestMapping("/bypnamesorted")
-	@ResponseBody
+	
 	public List<Person> findbypnamesorted(@RequestParam String pname)
 	{
 
@@ -61,7 +87,7 @@ public class PersonController {
 	}
 	
 	@RequestMapping("/bypname")
-	@ResponseBody
+
 	public List<Person> findbypname(@RequestParam String pname)
 	{
 		return repo.findbypname(pname);
@@ -69,8 +95,10 @@ public class PersonController {
 		
 		
 	}
-	@RequestMapping("/allPerson")
-	@ResponseBody
+	//modified method to support only xml format
+	//@RequestMapping(path="/allPerson" , produces= {"application/xml"})
+	@RequestMapping(path="/allPerson" )
+	
 	public List<Person> allPerson()
 	{
 		
@@ -78,8 +106,11 @@ public class PersonController {
 		
 	}
 	
+	
+	
+	
 	@RequestMapping("/allPerson/{id}")
-	@ResponseBody
+	
 	public Optional<Person> allPerson(@PathVariable("id") int id)
 	{
 		
